@@ -81,7 +81,7 @@ PKG_CHECK_MODULES([OMNIORB], [omniORB4 >= 4.0.0])
 OMNIORB_INCLUDEDIR=`pkg-config --variable=includedir omniORB4`
 AC_SUBST(OMNIORB_INCLUDEDIR)
 PKG_CHECK_EXISTS([omniORB4 >= 4.2.0],[AC_DEFINE([OMNIORB4_2],[1],[])])
-PKG_CHECK_MODULES([OMNITHREAD], [omnithread3 >= 4.0.0])
+PKG_CHECK_MODULES([OMNITHREAD], [omnithread4 >= 4.0.0])
 PKG_CHECK_MODULES([OMNIDYNAMIC], [omniDynamic4 >= 4.0.0])
 
 dnl Use PKG_CHECK_EXISTS because it won't throw error messages like PKG_CHECK_MODULES will
@@ -268,7 +268,7 @@ if test "$HAVE_JAVASUPPORT" = yes; then
 fi
 
 # C++ unit testing support. May want to conditionally enable/disable this.
-AM_PATH_CPPUNIT(1.12.1)
+#AM_PATH_CPPUNIT(1.12.1)
 AS_IF([test "x$HAVE_JAVASUPPORT" == "xyes"], [
   dnl Use RPM location hard-coded for now
   AC_SUBST([JUNIT_CLASSPATH], "/usr/share/java/junit4.jar")
@@ -278,7 +278,7 @@ AS_IF([test "x$HAVE_JAVASUPPORT" == "xyes"], [
 # /usr.  OSSIE doesn't use these variables anyways...and even if it did
 # they would get undefined in any file that included CORBA.h (because ossieconfig.h
 # undefines them)
-CPPFLAGS="${CPPFLAGS} -UPACKAGE_NAME -UPACKAGE_BUGREPORT -UPACKAGE_TARNAME -UPACKAGE_STRING -UPACKAGE_VERSION"
+CPPFLAGS="${CPPFLAGS} -UPACKAGE_NAME -UPACKAGE_BUGREPORT -UPACKAGE_TARNAME -UPACKAGE_STRING -UPACKAGE_VERSION -std=c++03"
 
 
 AC_CONFIG_FILES(Makefile \

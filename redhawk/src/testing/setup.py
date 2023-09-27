@@ -28,18 +28,21 @@ try:
 except ImportError:
     pass
 else:
-    import StringIO
+    try:
+        from StringIO import StringIO
+    except ImportError:
+        from io import StringIO
     stdout, stderr = sys.stdout, sys.stderr
-    sys.stdout = co = StringIO.StringIO()
-    sys.stderr = ce = StringIO.StringIO()
+    sys.stdout = co = StringIO()
+    sys.stderr = ce = StringIO()
     # Tabnanny doesn't provide any mechanism other than print outs so we have
     # to capture the output
     tabnanny.check("_unitTestHelpers")
     sys.stdout = stdout
     sys.stderr = stderr
     if len(co.getvalue().strip()) != 0:
-        print "Incosistent tab usage:"
-        print co.getvalue()
+        print("Incosistent tab usage:")
+        print(co.getvalue())
         sys.exit(-1)
 
 unitTestHelper = [
